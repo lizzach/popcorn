@@ -1,21 +1,13 @@
-import { useState } from "react";
-import Movie from "../models/movie";
-import Logo from "./Logo.js";
-import Search from "./Search.js";
-import NumResults from "./NumResults.js";
+import { ReactNode } from "react";
 
 interface NavbarProps {
-  movies: Movie[];
+  children: ReactNode[];
 }
-
-export default function Navbar({movies}: NavbarProps) {
-  const [query, setQuery] = useState<string>("");
+export default function Navbar({children}: NavbarProps) {
 
   return (
     <nav className="nav-bar">
-        <Logo />
-        <Search query={query} setQuery={setQuery}/>
-        <NumResults movies={movies}/>
+        {children}
     </nav>
   );
 }
