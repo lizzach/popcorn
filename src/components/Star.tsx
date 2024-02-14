@@ -8,11 +8,19 @@ const starStyle = {
 interface StarProps {
   onClick: () => void;
   full: boolean;
+  onHoverIn: () => void;
+  onHoverOut: () => void;
 }
 
-export default function Star({onClick, full}: StarProps) {
+export default function Star({onClick, full, onHoverIn, onHoverOut}: StarProps) {
   return (
-    <span role="button" style={starStyle} onClick={onClick}>
+    <span 
+      role="button" 
+      style={starStyle} 
+      onClick={onClick} 
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       { full ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

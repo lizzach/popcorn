@@ -22,6 +22,7 @@ interface StarRatingProps {
 
 export default function StarRating({maxRating = 5}: StarRatingProps) {
   const [rating, setRating] = useState<number>(0);
+  const [tempRating, setTempRating] = useState<number>(0);
 
   return (
     <div style={containerStyle}>
@@ -30,10 +31,12 @@ export default function StarRating({maxRating = 5}: StarRatingProps) {
           <Star 
             key={i} 
             onClick={() => setRating(i + 1)}
-            full={rating >= i + 1}
+            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
             />)}
       </div>
-      <p style={textStyle}>{rating || ""}</p>
+      <p style={textStyle}>{tempRating || rating || ""}</p>
     </div>
   );
 }
