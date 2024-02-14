@@ -9,6 +9,7 @@ import Search from "./components/Search.js";
 import NumResults from "./components/NumResults.js";
 import MoviesBox from "./components/MoviesBox.js";
 import WatchedBox from "./components/WatchedBox.js";
+import MoviesList from "./components/MoviesList.js";
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>(tempMovieData);
@@ -22,7 +23,9 @@ function App() {
         <NumResults movies={movies}/>
       </Navbar>
       <Main>
-        <MoviesBox movies={movies}/>
+        <MoviesBox>
+          <MoviesList movies={movies} />
+        </MoviesBox>
         <WatchedBox />
       </Main>
     </>

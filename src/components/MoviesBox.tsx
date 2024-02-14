@@ -1,13 +1,11 @@
 import { useState } from "react";
-
-import Movie from "../models/movie";
-import MoviesList from "./MoviesList";
+import { ReactNode } from "react";
 
 interface MoviesBoxProps {
-  movies: Movie[];
+  children: ReactNode;
 }
 
-export default function MoviesBox({movies}: MoviesBoxProps) {
+export default function MoviesBox({children}: MoviesBoxProps) {
   const [isOpen1, setIsOpen1] = useState<boolean>(true);
 
   return (
@@ -18,7 +16,7 @@ export default function MoviesBox({movies}: MoviesBoxProps) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MoviesList movies={movies}/>}
+      {isOpen1 && children}
     </div>
   );
 }
