@@ -5,9 +5,12 @@ import Logo from "./Logo.js";
 import Search from "./Search.js";
 import NumResults from "./NumResults.js";
 
-export default function Navbar() {
+interface NavbarProps {
+  movies: Movie[];
+}
+
+export default function Navbar({movies}: NavbarProps) {
   const [query, setQuery] = useState<string>("");
-  const [movies, setMovies] = useState<Movie[]>(tempMovieData);
 
   return (
     <nav className="nav-bar">
