@@ -9,7 +9,7 @@ export default function WatchedMoviesList({watched}: WatchedMoviesListProps) {
   return (
     <ul className="list">
       {watched.map((movie) => (
-        <WatchedMovieItem movie={movie}/>
+        <WatchedMovieItem movie={movie} key={movie.imdbID}/>
       ))}
     </ul>
   );
