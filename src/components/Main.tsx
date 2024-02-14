@@ -1,16 +1,13 @@
-import MoviesBox from "./MoviesBox";
-import Movie from "../models/movie";
-import WatchedBox from "./WatchedBox";
+import { ReactNode } from "react";
 
 interface MainProps {
-  movies: Movie[];
+  children: ReactNode;
 }
 
-export default function Main({movies}: MainProps) {
+export default function Main({children}: MainProps) {
   return (
     <main className="main">
-      <MoviesBox movies={movies}/>
-      <WatchedBox />
+      {children}
     </main>
   );
 }

@@ -7,6 +7,8 @@ import { tempMovieData } from "./data/data.js";
 import Logo from "./components/Logo.js";
 import Search from "./components/Search.js";
 import NumResults from "./components/NumResults.js";
+import MoviesBox from "./components/MoviesBox.js";
+import WatchedBox from "./components/WatchedBox.js";
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>(tempMovieData);
@@ -19,7 +21,10 @@ function App() {
         <Search query={query} setQuery={setQuery}/>
         <NumResults movies={movies}/>
       </Navbar>
-      <Main movies={movies}/>
+      <Main>
+        <MoviesBox movies={movies}/>
+        <WatchedBox />
+      </Main>
     </>
   )
 }
