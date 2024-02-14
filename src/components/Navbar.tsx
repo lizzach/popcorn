@@ -3,6 +3,7 @@ import Movie from "../models/movie";
 import { tempMovieData } from "../data/data.js";
 import Logo from "./Logo.js";
 import Search from "./Search.js";
+import NumResults from "./NumResults.js";
 
 export default function Navbar() {
   const [query, setQuery] = useState<string>("");
@@ -12,9 +13,7 @@ export default function Navbar() {
     <nav className="nav-bar">
         <Logo />
         <Search query={query} setQuery={setQuery}/>
-        <p className="num-results">
-          Found <strong>{movies.length}</strong> results
-        </p>
-      </nav>
+        <NumResults movies={movies}/>
+    </nav>
   );
 }
