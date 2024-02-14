@@ -1,4 +1,5 @@
 import Star from "./Star";
+import { useState } from "react";
 
 const containerStyle = {
   display: "flex",
@@ -20,13 +21,15 @@ interface StarRatingProps {
 }
 
 export default function StarRating({maxRating = 5}: StarRatingProps) {
+  const [rating, setRating] = useState<number>(0);
 
   return (
     <div style={containerStyle}>
       <div style={starContainerStyle}>
-        {Array.from({length: maxRating}, (_, i) => <Star key={i} />)}
+        {Array.from({length: maxRating}, (_, i) => 
+          <Star key={i} onClick={() => setRating(i + 1)}/>)}
       </div>
-      <p style={textStyle}>10</p>
+      <p style={textStyle}>{rating || ""}</p>
     </div>
   );
 }

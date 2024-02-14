@@ -5,9 +5,12 @@ const starStyle = {
   cursor: "pointer",
 }
 
-export default function Star() {
+interface StarProps {
+  onClick: () => void;
+}
+export default function Star({onClick}: StarProps) {
   return (
-    <span role="button" style={starStyle}>
+    <span role="button" style={starStyle} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
