@@ -9,7 +9,7 @@ export default function MoviesList({movies}: MoviesListProps) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <MovieItem movie={movie}/>
+        <MovieItem movie={movie} key={movie.imdbID}/>
       ))}
     </ul>
   );
