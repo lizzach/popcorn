@@ -1,6 +1,6 @@
 import { useState } from "react";
 import WatchedMovie from "../models/watchedMovie";
-import { tempWatchedData, average } from "../data/data.js";
+import { tempWatchedData } from "../data/data.js";
 import Summary from "./Summary.js";
 import WatchedMoviesList from "./WatchedMoviesList.js";
 
