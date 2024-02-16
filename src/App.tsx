@@ -12,6 +12,7 @@ import Box from "./components/Box.js";
 import MoviesList from "./components/MoviesList.js";
 import Summary from "./components/Summary.js";
 import WatchedMoviesList from "./components/WatchedMoviesList.js";
+import Loader from "./components/Loader.js";
 
 const KEY = import.meta.env.VITE_API_KEY;
 
@@ -20,13 +21,16 @@ function App() {
   const [query, setQuery] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [watched, setWatched] = useState<WatchedMovie[]>(tempWatchedData);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const queryTest = "Dune";
 
   useEffect(function() {
     async function fetchMovies() {
+      setIsLoading(true);
       const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${queryTest}`);
       const data = await res.json();
       setMovies(data.Search);
+      setIsLoading(false);
     }
     fetchMovies();
   }, [])
@@ -40,7 +44,7 @@ function App() {
       </Navbar>
       <Main>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
-          <MoviesList movies={movies} />
+          {isLoading ? <Loader /> : <MoviesList movies={movies} />}
         </Box>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
           <Summary watched={watched}/>
