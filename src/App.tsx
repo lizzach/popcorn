@@ -13,6 +13,7 @@ import MoviesList from "./components/MoviesList.js";
 import Summary from "./components/Summary.js";
 import WatchedMoviesList from "./components/WatchedMoviesList.js";
 import Loader from "./components/Loader.js";
+import Error from "./components/Error.js";
 
 const KEY = import.meta.env.VITE_API_KEY;
 
@@ -22,15 +23,32 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [watched, setWatched] = useState<WatchedMovie[]>(tempWatchedData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState("");
   const queryTest = "Dune";
 
   useEffect(function() {
     async function fetchMovies() {
-      setIsLoading(true);
-      const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${queryTest}`);
-      const data = await res.json();
-      setMovies(data.Search);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${queryTest}`);
+
+        if (!res.ok) {
+          throw new Error("Error loading movie data");
+        }
+        
+        const data = await res.json();
+        if (data.Response === "False") {
+          throw new Error ("Movie not found");
+        }
+
+        setMovies(data.Search);
+        setIsLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
     fetchMovies();
   }, [])
@@ -44,7 +62,9 @@ function App() {
       </Navbar>
       <Main>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
-          {isLoading ? <Loader /> : <MoviesList movies={movies} />}
+          {isLoading && <Loader />}
+          {!isLoading && !error && <MoviesList movies={movies} />}
+          {error && <Error error={error} />}
         </Box>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
           <Summary watched={watched}/>
