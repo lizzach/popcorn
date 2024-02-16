@@ -63,7 +63,11 @@ function App() {
   }, [query])
 
   function handleSelectId(id: string) {
-    setSelectedId(id);
+    setSelectedId(selectedId => (id === selectedId ? null : id));
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
   }
 
   return (
@@ -80,7 +84,8 @@ function App() {
           {error && <ErrorMsg error={error} />}
         </Box>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
-          {selectedId ? <MovieDetails id={selectedId}/> : 
+          {selectedId ? 
+            <MovieDetails id={selectedId} onCloseMovie={handleCloseMovie}/> : 
           <>
             <Summary watched={watched}/>
             <WatchedMoviesList watched={watched}/>
