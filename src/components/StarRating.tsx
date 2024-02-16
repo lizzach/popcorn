@@ -12,10 +12,10 @@ const starContainerStyle = {
 }
 
 interface StarRatingProps {
-  maxRating: number;
-  color: string;
-  size: number;
-  className: string;
+  maxRating?: number;
+  color?: string;
+  size?: number;
+  className?: string;
 }
 
 export default function StarRating({
