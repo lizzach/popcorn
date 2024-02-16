@@ -30,7 +30,8 @@ function App() {
     async function fetchMovies() {
       try {
         setIsLoading(true);
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${queryTest}`);
+        setError("");
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
 
         if (!res.ok) {
           throw new Error("Error loading movie data");
@@ -51,7 +52,7 @@ function App() {
       }
     }
     fetchMovies();
-  }, [])
+  }, [query])
 
   return (
     <>
