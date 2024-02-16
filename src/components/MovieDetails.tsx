@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import StarRating from "./StarRating";
 
 const KEY = import.meta.env.VITE_API_KEY;
 
@@ -49,11 +50,13 @@ export default function MovieDetails({id, onCloseMovie}: MovieDetailsProps) {
       </header>
 
       <section>
+        <div className="rating">
+          <StarRating maxRating={10} size={24}/>
+        </div>
         <p><em>{plot}</em></p>
         <p>Starring {actors}</p>
         <p>Directed by {director}</p>
       </section>
-      {id}
     </div>
   );
 }
