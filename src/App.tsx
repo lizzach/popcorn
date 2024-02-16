@@ -13,7 +13,7 @@ import MoviesList from "./components/MoviesList.js";
 import Summary from "./components/Summary.js";
 import WatchedMoviesList from "./components/WatchedMoviesList.js";
 import Loader from "./components/Loader.js";
-import Error from "./components/Error.js";
+import ErrorMsg from "./components/ErrorMsg.js";
 
 const KEY = import.meta.env.VITE_API_KEY;
 
@@ -50,9 +50,17 @@ function App() {
       } finally {
         setIsLoading(false);
       }
+
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
     }
     fetchMovies();
   }, [query])
+
+  console.log(query);
 
   return (
     <>
@@ -65,7 +73,7 @@ function App() {
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
           {isLoading && <Loader />}
           {!isLoading && !error && <MoviesList movies={movies} />}
-          {error && <Error error={error} />}
+          {error && <ErrorMsg error={error} />}
         </Box>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
           <Summary watched={watched}/>

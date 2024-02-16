@@ -3,5 +3,5 @@ interface ErrorProps {
 }
 
 export default function Error({error}: ErrorProps) {
-  return <p className="error"></p>;
+  return <p className="error">{error}</p>;
 }
