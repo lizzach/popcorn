@@ -14,6 +14,7 @@ import Summary from "./components/Summary.js";
 import WatchedMoviesList from "./components/WatchedMoviesList.js";
 import Loader from "./components/Loader.js";
 import ErrorMsg from "./components/ErrorMsg.js";
+import MovieDetails from "./components/MovieDetails.js";
 
 const KEY = import.meta.env.VITE_API_KEY;
 
@@ -24,6 +25,7 @@ function App() {
   const [watched, setWatched] = useState<WatchedMovie[]>(tempWatchedData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const queryTest = "Dune";
 
   useEffect(function() {
@@ -60,7 +62,9 @@ function App() {
     fetchMovies();
   }, [query])
 
-  console.log(query);
+  function handleSelectId(id: string) {
+    setSelectedId(id);
+  }
 
   return (
     <>
@@ -72,12 +76,15 @@ function App() {
       <Main>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
           {isLoading && <Loader />}
-          {!isLoading && !error && <MoviesList movies={movies} />}
+          {!isLoading && !error && <MoviesList movies={movies} onSelectId={handleSelectId}/>}
           {error && <ErrorMsg error={error} />}
         </Box>
         <Box isOpen={isOpen} setIsOpen={setIsOpen}>
-          <Summary watched={watched}/>
-          <WatchedMoviesList watched={watched}/>
+          {selectedId ? <MovieDetails id={selectedId}/> : 
+          <>
+            <Summary watched={watched}/>
+            <WatchedMoviesList watched={watched}/>
+          </>}
         </Box>
       </Main>
     </>
